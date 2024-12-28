@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "git-user-switch"
-version = "1.0.0"
+version = "1.0.1"
 description = "A CLI tool to switch Git user profiles."
 authors = ["rosenari <rosenari88@gmail.com>"]
 license = "MIT"

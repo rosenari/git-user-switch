@@ -9,6 +9,7 @@ REQUIRED_FIELDS = {"ssh_key", "git_name", "git_email"}
 
 def get_config_path():
     config_path = os.environ.get("GIT_USER_SWITCH_CONFIG")
+
     if not config_path:
         print("Error: Environment variable 'GIT_USER_SWITCH_CONFIG' is not set.")
         print("Please set it to the path of your configuration file.")
