@@ -39,3 +39,10 @@ The configuration file should look like this
 ```bash
 git-user-switch user1
 ```
+
+Try adding it to your zshrc or bashrc file and use it.
+
+```bash
+export GIT_USER_SWITCH_CONFIG="/Users/user/config.json"
+git-user-switch user1
+```
