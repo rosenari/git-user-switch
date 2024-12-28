@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "git-user-switch"
+version = "1.0.0"
+description = "A CLI tool to switch Git user profiles."
+authors = ["rosenari <rosenari88@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/rosenari/git-user-switch"
+repository = "https://github.com/rosenari/git-user-switch"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pytest = "^8.3.4"
+
+[tool.poetry.scripts]
+git-user-switch = "git_user_switch.main:main"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
