@@ -13,7 +13,7 @@ def get_config_path():
         print("Error: Environment variable 'GIT_USER_SWITCH_CONFIG' is not set.")
         print("Please set it to the path of your configuration file.")
         exit(1)
-    return Path(config_path)
+    return Path(os.path.expanduser(config_path))
 
 
 def validate_config(config_path):
@@ -54,14 +54,16 @@ def switch_user(user, config):
     git_name = user_config["git_name"]
     git_email = user_config["git_email"]
 
-    os.environ["GIT_SSH_COMMAND"] = f"ssh -i {ssh_key} -o IdentitiesOnly=yes"
     subprocess.run(["git", "config", "--global", "user.name", git_name], check=True)
     subprocess.run(["git", "config", "--global", "user.email", git_email], check=True)
+
+    ssh_command = f"ssh -i {ssh_key} -o IdentitiesOnly=yes"
+    subprocess.run(["git", "config", "--global", "core.sshCommand", ssh_command], check=True)
 
     print(f"Switched to user: {user}")
     print(f"Git name: {git_name}")
     print(f"Git email: {git_email}")
-    print(f"SSH key: {ssh_key}")
+    print(f"SSH key set for Git: {ssh_key}")
 
 
 def main():

@@ -1,6 +1,7 @@
 import os
 import json
 import pytest
+import subprocess
 from git_user_switch.main import get_config_path, validate_config, switch_user
 
 
@@ -69,14 +70,25 @@ def test_validate_config_missing_fields(tmp_path):
         validate_config(incomplete_config_path)
 
 
-def test_switch_user_valid(config_env, monkeypatch):
+def test_switch_user_valid(config_env):
     config = validate_config(config_env)
-    monkeypatch.delenv("GIT_SSH_COMMAND", raising=False)
 
     switch_user("user1", config)
 
-    expected_command = f"ssh -i {os.path.expanduser('~/.ssh/id_rsa_user1')} -o IdentitiesOnly=yes"
-    assert os.environ["GIT_SSH_COMMAND"] == expected_command
+    ssh_command = subprocess.check_output(
+        ["git", "config", "--global", "core.sshCommand"], text=True
+    ).strip()
+    user_name = subprocess.check_output(
+        ["git", "config", "--global", "user.name"], text=True
+    ).strip()
+    user_email = subprocess.check_output(
+        ["git", "config", "--global", "user.email"], text=True
+    ).strip()
+
+    expected_ssh_command = f"ssh -i {os.path.expanduser('~/.ssh/id_rsa_user1')} -o IdentitiesOnly=yes"
+    assert ssh_command == expected_ssh_command
+    assert user_name == "User One"
+    assert user_email == "user1@example.com"
 
 
 def test_switch_user_invalid_user(config_env):
