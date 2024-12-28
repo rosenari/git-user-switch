@@ -4,10 +4,10 @@ A CLI tool to switch Git user profiles easily.
 
 ## Installation
 
-Install the package using `pip`:
+Install the package using `pipx`:
 
 ```bash
-pip install git-user-switch
+pipx install git-user-switch
 ```
 
 ## Configuration
